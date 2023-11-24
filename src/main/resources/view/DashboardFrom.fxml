@@ -23,12 +23,12 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="99.0" onDragDetected="#onActionCustomerBtn" prefHeight="50.0" prefWidth="134.0" ripplerFill="#07fcfc" style="-fx-background-color: #16a5a5;" text="Customer" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="99.0" onAction="#onActionCustomerBtn" prefHeight="50.0" prefWidth="134.0" ripplerFill="#07fcfc" style="-fx-background-color: #16a5a5;" text="Customer" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="173.0" onDragDetected="#onActionItemBtn" prefHeight="50.0" prefWidth="134.0" ripplerFill="#07fcfc" style="-fx-background-color: #16a5a5;" text="Item" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="173.0" onAction="#onActionItemBtn" prefHeight="50.0" prefWidth="134.0" ripplerFill="#07fcfc" style="-fx-background-color: #16a5a5;" text="Item" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
