@@ -42,7 +42,7 @@ public class DashboardFromController {
     public void onActionItemBtn(ActionEvent actionEvent) {
         Stage stage = (Stage) paneDashboard.getScene().getWindow();
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/ItemForm.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/ItemForm.fxml"))));
             stage.setResizable(false);
             stage.setTitle("Items");
             stage.show();

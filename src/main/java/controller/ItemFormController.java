@@ -59,7 +59,7 @@ public class ItemFormController {
     void onActionBackBtn(ActionEvent event) {
         Stage stage = (Stage) pane.getScene().getWindow();
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/DashboardFrom.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/DashboardFrom.fxml"))));
             stage.setTitle("Welcome");
             stage.show();
         } catch (IOException e) {
