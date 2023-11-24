@@ -1,24 +1,31 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import db.DBConnection;
 import dto.ItemDto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import dto.tm.ItemTm;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.sql.Statement;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.*;
 
 public class ItemFormController {
 
@@ -59,7 +66,46 @@ public class ItemFormController {
     private TreeTableColumn colOption;
 
     public void initialize(){
+        colCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("code"));
+        colDesc.setCellValueFactory(new TreeItemPropertyValueFactory<>("desc"));
+        colPrice.setCellValueFactory(new TreeItemPropertyValueFactory<>("unitPrice"));
+        colQty.setCellValueFactory(new TreeItemPropertyValueFactory<>("qty"));
+        colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("deleteBtn"));
+        loadItemTable();
 
+    }
+
+    private void loadItemTable() {
+        ObservableList<ItemTm> tmList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM Item";
+
+        try {
+            Statement stm = DBConnection.getInstance().getConnection().createStatement();
+            ResultSet resultSet = stm.executeQuery(sql);
+            while (resultSet.next()){
+                JFXButton deleteBtn = new JFXButton("Delete");
+                deleteBtn.setStyle("-fx-background-color:#cf0f12;" +
+                        "-fx-font-weight: BOLD"
+                );
+
+                ItemTm tm = new ItemTm(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getDouble(3),
+                        resultSet.getInt(4),
+                        deleteBtn
+                );
+                tmList.add(tm);
+            }
+            TreeItem<ItemTm> treeItem = new RecursiveTreeItem<> (tmList,
+                    RecursiveTreeObject::getChildren);
+            tblItem.setRoot(treeItem);
+            tblItem.setShowRoot(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -97,8 +143,9 @@ public class ItemFormController {
                 new Alert(Alert.AlertType.INFORMATION,"Item Saved!").show();
             }
 
-        }catch (SQLIntegrityConstraintViolationException ex){
-            new Alert(Alert.AlertType.ERROR,"Duplicate Entry!").show();
+        }catch (SQLIntegrityConstraintViolationException ex) {
+            new Alert(Alert.AlertType.ERROR,
+                    "Duplicate Entry!").show();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
