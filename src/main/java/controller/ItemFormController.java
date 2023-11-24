@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.tm.ItemTm;
 
 import java.io.IOException;
 
@@ -33,7 +34,7 @@ public class ItemFormController {
     private JFXTextField txtItemSearch;
 
     @FXML
-    private JFXTreeTableView<?> tblItem;
+    private JFXTreeTableView<ItemTm> tblItem;
 
     @FXML
     private TreeTableColumn colCode;
@@ -49,6 +50,10 @@ public class ItemFormController {
 
     @FXML
     private TreeTableColumn colOption;
+
+    public void initialize(){
+
+    }
 
     @FXML
     void onActionBackBtn(ActionEvent event) {
