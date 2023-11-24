@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -12,5 +13,25 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
+      <Label alignment="CENTER" layoutX="199.0" layoutY="19.0" prefHeight="25.0" prefWidth="322.0" text="Order System" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="62.0" layoutY="495.0" prefHeight="17.0" prefWidth="595.0" text="Designed by Randula Rajapakse©">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="99.0" onDragDetected="#onActionCustomerBtn" prefHeight="50.0" prefWidth="134.0" ripplerFill="#07fcfc" style="-fx-background-color: #16a5a5;" text="Customer" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="173.0" onDragDetected="#onActionItemBtn" prefHeight="50.0" prefWidth="134.0" ripplerFill="#07fcfc" style="-fx-background-color: #16a5a5;" text="Item" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
