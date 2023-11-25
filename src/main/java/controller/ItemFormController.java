@@ -84,7 +84,7 @@ public class ItemFormController {
             ResultSet resultSet = stm.executeQuery(sql);
             while (resultSet.next()){
                 JFXButton deleteBtn = new JFXButton("Delete");
-                deleteBtn.setStyle("-fx-background-color:#cf0f12;" +
+                deleteBtn.setStyle("-fx-background-color:#c91114;" +
                         "-fx-font-weight: BOLD"
                 );
 
