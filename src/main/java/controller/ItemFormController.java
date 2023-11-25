@@ -95,6 +95,9 @@ public class ItemFormController {
                         resultSet.getInt(4),
                         deleteBtn
                 );
+                deleteBtn.setOnAction(actionEvent -> {
+                    deleteItem(tm.getCode());
+                });
                 tmList.add(tm);
             }
             TreeItem<ItemTm> treeItem = new RecursiveTreeItem<> (tmList,
@@ -106,6 +109,27 @@ public class ItemFormController {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void deleteItem(String code) {
+        String sql = "DELETE FROM item WHERE code=?";
+        try {
+            PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
+            pstm.setString(1,code);
+            int result = pstm.executeUpdate();
+            if (result>0){
+                new Alert(Alert.AlertType.INFORMATION,"Item Deleted!").show();
+                loadItemTable();
+            }else{
+                new Alert(Alert.AlertType.ERROR,"Something went wrong!").show();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @FXML
@@ -141,6 +165,7 @@ public class ItemFormController {
             int result = pstm.executeUpdate();
             if (result>0){
                 new Alert(Alert.AlertType.INFORMATION,"Item Saved!").show();
+                loadItemTable();
             }
 
         }catch (SQLIntegrityConstraintViolationException ex) {
