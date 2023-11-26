@@ -12,8 +12,14 @@ import java.util.List;
 
 public class CustomerModelImpl implements CustomerModel {
     @Override
-    public boolean saveCustomer(CustomerDto dto) {
-        return false;
+    public boolean saveCustomer(CustomerDto dto) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO Customer VALUES(?,?,?,?)";
+        PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
+        pstm.setString(1,dto.getId());
+        pstm.setString(2,dto.getName());
+        pstm.setString(3,dto.getAddress());
+        pstm.setDouble(4,dto.getSalary());
+        return pstm.executeUpdate()>0;
     }
 
     @Override

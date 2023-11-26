@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import com.sun.source.tree.Tree;
 import dto.CustomerDto;
 import dto.tm.CustomerTm;
 import javafx.collections.FXCollections;
@@ -25,6 +24,7 @@ import model.impl.CustomerModelImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 
@@ -75,6 +75,21 @@ public class CustomerFormController {
         colSalary.setCellValueFactory(new TreeItemPropertyValueFactory<>("salary"));
         colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("deleteBtn"));
         loadCustomersTable();
+
+        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            setItems(newValue);
+        });
+    }
+
+    private void setItems(TreeItem<CustomerTm> newValue) {
+        if (newValue != null){
+            CustomerTm selectedObj = newValue.getValue();
+            txtCustomerId.setEditable(false);
+            txtCustomerId.setText(selectedObj.getId());
+            txtCustomerName.setText(selectedObj.getName());
+            txtCustomerAddress.setText(selectedObj.getAddress());
+            txtCustomerSalary.setText(String.valueOf(selectedObj.getSalary()));
+        }
     }
 
     private void loadCustomersTable() {
@@ -122,7 +137,12 @@ public class CustomerFormController {
     }
 
     private void clearFields() {
-
+        txtCustomerId.clear();
+        txtCustomerId.setEditable(true);
+        txtCustomerName.clear();
+        txtCustomerAddress.clear();
+        txtCustomerSalary.clear();
+        txtCustomerSearch.clear();
     }
 
     @FXML
@@ -140,12 +160,30 @@ public class CustomerFormController {
 
     @FXML
     void onActionReloadBtn(ActionEvent event) {
-
+        clearFields();
     }
 
     @FXML
     void onActionSaveBtn(ActionEvent event) {
+        try {
+            boolean isSaved = customerModel.saveCustomer(new CustomerDto(
+                    txtCustomerId.getText(),
+                    txtCustomerName.getText(),
+                    txtCustomerAddress.getText(),
+                    Double.parseDouble(txtCustomerSalary.getText())
+            ));
+            if (isSaved){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Saved!").show();
+                loadCustomersTable();
+                clearFields();
+            }
 
+        }catch (SQLIntegrityConstraintViolationException ex) {
+            new Alert(Alert.AlertType.ERROR,
+                    "Duplicate Entry!").show();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
