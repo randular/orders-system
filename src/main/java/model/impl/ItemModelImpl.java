@@ -6,17 +6,24 @@ import dto.ItemDto;
 import dto.tm.ItemTm;
 import model.ItemModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemModelImpl implements ItemModel {
     @Override
-    public boolean saveItem(ItemDto dto) {
-        return false;
+    public boolean saveItem(ItemDto dto) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO Item VALUES(?,?,?,?)";
+        PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
+        pstm.setString(1,
+                dto.getCode());
+        pstm.setString(2,
+                dto.getDesc());
+        pstm.setDouble(3,
+                dto.getUnitPrice());
+        pstm.setInt(4,
+                dto.getQty());
+        return pstm.executeUpdate() > 0;
     }
 
     @Override

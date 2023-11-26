@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ItemModel {
-    boolean saveItem(ItemDto dto);
+    boolean saveItem(ItemDto dto) throws SQLException, ClassNotFoundException;
     boolean updateItem(ItemDto dto);
     boolean deleteItem(String code) throws SQLException, ClassNotFoundException;
     List<ItemDto> allItems() throws SQLException, ClassNotFoundException;
