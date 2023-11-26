@@ -22,10 +22,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import dto.tm.ItemTm;
+import model.CustomerModel;
+import model.ItemModel;
+import model.impl.CustomerModelImpl;
+import model.impl.ItemModelImpl;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.util.List;
 
 public class ItemFormController {
 
@@ -65,6 +70,8 @@ public class ItemFormController {
     @FXML
     private TreeTableColumn colOption;
 
+    private ItemModel itemModel = new ItemModelImpl();
+
     public void initialize(){
         colCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("code"));
         colDesc.setCellValueFactory(new TreeItemPropertyValueFactory<>("desc"));
@@ -77,59 +84,50 @@ public class ItemFormController {
 
     private void loadItemTable() {
         ObservableList<ItemTm> tmList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM Item";
 
         try {
-            Statement stm = DBConnection.getInstance().getConnection().createStatement();
-            ResultSet resultSet = stm.executeQuery(sql);
-            while (resultSet.next()){
+            List<ItemDto> dtoList = itemModel.allItems();
+            for (ItemDto dto:dtoList) {
                 JFXButton deleteBtn = new JFXButton("Delete");
                 deleteBtn.setStyle("-fx-background-color:#c91114;" +
                         "-fx-font-weight: BOLD"
                 );
-
-                ItemTm tm = new ItemTm(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getDouble(3),
-                        resultSet.getInt(4),
+                ItemTm table = new ItemTm(
+                        dto.getCode(),
+                        dto.getDesc(),
+                        dto.getUnitPrice(),
+                        dto.getQty(),
                         deleteBtn
                 );
+
                 deleteBtn.setOnAction(actionEvent -> {
-                    deleteItem(tm.getCode());
+                    deleteItem(dto.getCode());
                 });
-                tmList.add(tm);
+                tmList.add(table);
             }
-            TreeItem<ItemTm> treeItem = new RecursiveTreeItem<> (tmList,
-                    RecursiveTreeObject::getChildren);
-            tblItem.setRoot(treeItem);
-            tblItem.setShowRoot(false);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        TreeItem<ItemTm> treeItem = new RecursiveTreeItem<> (tmList,
+                RecursiveTreeObject::getChildren);
+        tblItem.setRoot(treeItem);
+        tblItem.setShowRoot(false);
+
     }
 
     private void deleteItem(String code) {
-        String sql = "DELETE FROM item WHERE code=?";
         try {
-            PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setString(1,code);
-            int result = pstm.executeUpdate();
-            if (result>0){
+            if (itemModel.deleteItem(code)){
                 new Alert(Alert.AlertType.INFORMATION,"Item Deleted!").show();
                 loadItemTable();
             }else{
                 new Alert(Alert.AlertType.ERROR,"Something went wrong!").show();
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     @FXML
@@ -171,9 +169,7 @@ public class ItemFormController {
         }catch (SQLIntegrityConstraintViolationException ex) {
             new Alert(Alert.AlertType.ERROR,
                     "Duplicate Entry!").show();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
