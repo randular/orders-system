@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerFormController">
+    <center>
+        <GridPane BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="677.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="38.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="350.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#onActionBackBtn" prefWidth="49.0" ripplerFill="WHITE" style="-fx-background-color: #F4F4F4;" GridPane.valignment="TOP">
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/Back-img.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" />
+                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label prefHeight="19.0" prefWidth="158.0" text="ID" GridPane.columnIndex="1">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label prefHeight="19.0" prefWidth="188.0" text="Name" GridPane.columnIndex="3">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label prefHeight="19.0" prefWidth="142.0" text="Address" GridPane.columnIndex="5">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label prefHeight="19.0" prefWidth="135.0" text="Salary" GridPane.columnIndex="7">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <JFXTextField fx:id="txtCustomerId" prefHeight="25.0" prefWidth="139.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="txtCustomerName" prefHeight="25.0" prefWidth="218.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="txtCustomerAddress" prefHeight="25.0" prefWidth="199.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="txtCustomerSalary" prefHeight="25.0" prefWidth="124.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                    </children>
+                </GridPane>
+                <JFXTextField fx:id="txtCustomerSearch" maxWidth="-Infinity" prefWidth="200.0" promptText="Search" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                <JFXTreeTableView fx:id="tblCustomer" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <columns>
+                        <TreeTableColumn fx:id="colId" maxWidth="-1.0" minWidth="90.0" prefWidth="-1.0" resizable="false" text="ID" />
+                        <TreeTableColumn fx:id="colName" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" resizable="false" text="Name" />
+                        <TreeTableColumn fx:id="colAddress" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" resizable="false" text="Address" />
+                        <TreeTableColumn fx:id="colSalary" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Salary" />
+                        <TreeTableColumn fx:id="colOption" maxWidth="-1.0" minWidth="85.0" prefWidth="-1.0" resizable="false" text="Option" />
+                    </columns>
+                </JFXTreeTableView>
+                <JFXButton buttonType="RAISED" onAction="#onActionSaveBtn" prefHeight="25.0" prefWidth="70.0" ripplerFill="#57ff00" style="-fx-background-color: #84d659;" text="Save" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" layoutX="653.0" layoutY="492.0" onAction="#onActionUpdateBtn" prefHeight="31.0" prefWidth="94.0" ripplerFill="#e8ec0e" style="-fx-background-color: #c1c32b;" text="Update" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets right="80.0" />
+                    </GridPane.margin>
+                </JFXButton>
+                <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="653.0" layoutY="492.0" onAction="#onActionReloadBtn" prefHeight="16.0" prefWidth="101.0" ripplerFill="WHITE" scaleX="0.8" scaleY="0.8" style="-fx-background-color: #ffc107;" text="Refresh" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </JFXButton>
+            </children>
+        </GridPane>
+    </center>
+</BorderPane>
