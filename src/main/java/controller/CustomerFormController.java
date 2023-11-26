@@ -188,6 +188,20 @@ public class CustomerFormController {
 
     @FXML
     void onActionUpdateBtn(ActionEvent event) {
+        try {
+            boolean isUpdated = customerModel.updateCustomer(new CustomerDto(txtCustomerId.getText(),
+                    txtCustomerName.getText(),
+                    txtCustomerAddress.getText(),
+                    Double.parseDouble(txtCustomerSalary.getText())
+            ));
+            if (isUpdated){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Updated!").show();
+                loadCustomersTable();
+                clearFields();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
