@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import db.DBConnection;
 import dto.ItemDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,19 +15,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import dto.tm.ItemTm;
-import model.CustomerModel;
 import model.ItemModel;
-import model.impl.CustomerModelImpl;
 import model.impl.ItemModelImpl;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.List;
 
@@ -80,6 +74,22 @@ public class ItemFormController {
         colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("deleteBtn"));
         loadItemTable();
 
+        tblItem.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            setItems(newValue);
+        });
+
+    }
+
+    private void setItems(TreeItem<ItemTm> newValue) {
+
+            if (newValue != null){
+                ItemTm selectedObjValue = newValue.getValue();
+                txtItemCode.setEditable(false);
+                txtItemCode.setText(selectedObjValue.getCode());
+                txtItemDesc.setText(selectedObjValue.getDesc());
+                txtItemPrice.setText(String.valueOf(selectedObjValue.getUnitPrice()));
+                txtItemQTY.setText(String.valueOf(selectedObjValue.getQty()));
+            }
     }
 
     private void loadItemTable() {
@@ -114,7 +124,6 @@ public class ItemFormController {
                 RecursiveTreeObject::getChildren);
         tblItem.setRoot(treeItem);
         tblItem.setShowRoot(false);
-
     }
 
     private void deleteItem(String code) {
@@ -122,6 +131,7 @@ public class ItemFormController {
             if (itemModel.deleteItem(code)){
                 new Alert(Alert.AlertType.INFORMATION,"Item Deleted!").show();
                 loadItemTable();
+                clearFields();
             }else{
                 new Alert(Alert.AlertType.ERROR,"Something went wrong!").show();
             }
@@ -153,6 +163,7 @@ public class ItemFormController {
             if (isSaved){
                 new Alert(Alert.AlertType.INFORMATION,"Item is Saved!").show();
                 loadItemTable();
+                clearFields();
             }
         }catch (SQLIntegrityConstraintViolationException ex) {
             new Alert(Alert.AlertType.ERROR,
@@ -164,7 +175,32 @@ public class ItemFormController {
 
     @FXML
     void onActionUpdateBtn(ActionEvent event) {
-
+        try {
+            boolean isUpdated = itemModel.updateItem(new ItemDto(txtItemCode.getText(),
+                    txtItemDesc.getText(),
+                    Double.parseDouble(txtItemPrice.getText()),
+                    Integer.parseInt(txtItemQTY.getText())
+            ));
+            if (isUpdated){
+                new Alert(Alert.AlertType.INFORMATION,"Item is Updated!").show();
+                loadItemTable();
+                clearFields();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    private void clearFields() {
+//        tblItem.refresh();
+        txtItemCode.clear();
+        txtItemCode.setEditable(true);
+        txtItemDesc.clear();
+        txtItemPrice.clear();
+        txtItemQTY.clear();
+    }
+
+    public void onActionReloadBtn(ActionEvent actionEvent) {
+        clearFields();
+    }
 }

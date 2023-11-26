@@ -107,6 +107,11 @@
                   <Insets right="80.0" />
                </GridPane.margin>
             </JFXButton>
+            <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="653.0" layoutY="492.0" onAction="#onActionReloadBtn" prefHeight="25.0" prefWidth="101.0" ripplerFill="WHITE" style="-fx-background-color: #ffc107;" text="Refresh" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
          </children>
       </GridPane>
    </center>
