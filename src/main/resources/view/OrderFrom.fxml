@@ -41,7 +41,7 @@
                         </ImageView>
                     </graphic>
                 </JFXButton>
-                <JFXTreeTableView fx:id="tblCustomer" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <JFXTreeTableView fx:id="tblOrder" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <columns>
                         <TreeTableColumn fx:id="colCode" maxWidth="-1.0" minWidth="90.0" prefWidth="-1.0" resizable="false" text="Code" />
                         <TreeTableColumn fx:id="colDescription" maxWidth="224.0" minWidth="200.0" prefWidth="224.0" resizable="false" text="Description" />
