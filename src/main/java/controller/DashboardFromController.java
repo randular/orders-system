@@ -60,4 +60,17 @@ public class DashboardFromController {
         }
 
     }
+
+    public void onActionPlaceOrderBtn(ActionEvent actionEvent) {
+        Stage stage = (Stage) paneDashboard.getScene().getWindow();
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/OrderFrom.fxml"))));
+            stage.setResizable(false);
+            stage.setTitle("Place Order");
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

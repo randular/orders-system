@@ -33,5 +33,10 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="347.0" onAction="#onActionPlaceOrderBtn" prefHeight="50.0" prefWidth="180.0" ripplerFill="#07fcfc" style="-fx-background-color: #16a5a5;" text="Place Order" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
