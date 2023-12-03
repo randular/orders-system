@@ -67,6 +67,8 @@ public class OrderFormController {
 
     private ObservableList<OrderTm> tmList = FXCollections.observableArrayList();
 
+    private double tot;
+
 
     public void initialize(){
         colCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("code"));
@@ -93,6 +95,11 @@ public class OrderFormController {
         });
         loadCustomerIds();
         loadItemCodes();
+        txtCustomerName.setEditable(false);
+        txtUnitPrice.setEditable(false);
+        txtItemDesc.setEditable(false);
+
+        tot = 0;
     }
 
     private void loadItemCodes() {
@@ -138,11 +145,14 @@ public class OrderFormController {
                     deleteBtn
             );
             boolean isExist = false;
+
+            tot+=amount;
             for (OrderTm order:tmList) {
                 if (order.getCode().equals(orderTm.getCode())){
                     order.setQty(order.getQty() + orderTm.getQty());
                     order.setAmt(order.getAmt() + orderTm.getAmt());
                     isExist = true;
+//                    tot += orderTm.getAmt();
                 }
             }
             if (!isExist){
@@ -153,6 +163,8 @@ public class OrderFormController {
                     RecursiveTreeObject::getChildren);
             tblOrder.setRoot(treeItem);
             tblOrder.setShowRoot(false);
+
+            lblTotalAmount.setText(String.format("%.2f",tot));
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
