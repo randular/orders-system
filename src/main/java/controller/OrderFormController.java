@@ -1,5 +1,7 @@
 package controller;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import dto.tm.OrderTm;
 import javafx.event.ActionEvent;
@@ -15,6 +17,12 @@ import java.io.IOException;
 
 public class OrderFormController {
 
+    public JFXTextField txtItemDesc;
+    public JFXTextField txtUnitPrice;
+    public JFXTextField txtItemQty;
+    public JFXComboBox cmbItemCode;
+    public JFXComboBox cmbCustomerID;
+    public JFXTextField txtCustomerName;
     @FXML
     private BorderPane pane;
 

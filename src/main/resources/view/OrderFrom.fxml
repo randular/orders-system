@@ -95,7 +95,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="19.0" prefWidth="158.0" text="Unti Price" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                  <Label prefHeight="19.0" prefWidth="158.0" text="Unit Price" GridPane.columnIndex="5" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -105,10 +105,10 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <JFXTextField GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                  <JFXTextField GridPane.columnIndex="5" GridPane.rowIndex="5" />
-                  <JFXTextField GridPane.columnIndex="7" GridPane.rowIndex="5" />
-                  <JFXComboBox prefHeight="25.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="txtItemDesc" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="txtUnitPrice" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="txtItemQty" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+                  <JFXComboBox fx:id="cmbItemCode" prefHeight="25.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label prefHeight="19.0" prefWidth="158.0" text="Customer ID" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="13.0" />
@@ -119,10 +119,29 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <JFXComboBox prefHeight="25.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <JFXTextField prefHeight="25.0" prefWidth="222.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <JFXComboBox fx:id="cmbCustomerID" prefHeight="25.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXTextField fx:id="txtCustomerName" prefHeight="25.0" prefWidth="222.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                </children>
             </GridPane>
+            <Label text="Total : " GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblTotalAmount" alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="96.0" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="75.0" />
+               </GridPane.margin>
+            </Label>
             </children>
         </GridPane>
     </center>
