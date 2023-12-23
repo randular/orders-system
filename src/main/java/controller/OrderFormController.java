@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dto.CustomerDto;
 import dto.ItemDto;
+import dto.OrderDto;
 import dto.tm.OrderTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,8 +21,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.CustomerModel;
 import model.ItemModel;
+import model.OrderModel;
 import model.impl.CustomerModelImpl;
 import model.impl.ItemModelImpl;
+import model.impl.OrderModelImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,6 +41,7 @@ public class OrderFormController {
     public JFXComboBox cmbCustomerID;
     public JFXTextField txtCustomerName;
     public Label lblTotalAmount;
+    public Label lblOrderId;
 
     @FXML
     private BorderPane pane;
@@ -65,6 +69,7 @@ public class OrderFormController {
 
     private CustomerModel customerModel = new CustomerModelImpl();
     private ItemModel itemModel = new ItemModelImpl();
+    private OrderModel orderModel = new OrderModelImpl();
 
     private ObservableList<OrderTm> tmList = FXCollections.observableArrayList();
 
@@ -99,6 +104,8 @@ public class OrderFormController {
         txtCustomerName.setEditable(false);
         txtUnitPrice.setEditable(false);
         txtItemDesc.setEditable(false);
+
+        generateId();
 
         tot = 0;
     }
@@ -204,9 +211,27 @@ public class OrderFormController {
         }
     }
 
+    public void generateId(){
+        try {
+            OrderDto orderDto = orderModel.lastOrder();
+            if (orderDto != null){
+                String id = orderDto.getOrderID();
+                int num = Integer.parseInt(id.split("[D]")[1]);
+                num++;
+                lblOrderId.setText(String.format("D%03d",num));
+            }else{
+                lblOrderId.setText("D001");
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     void onActionPlaceOrder(ActionEvent event) {
-
+        if (tmList.isEmpty()){
+//            orderModel.saveOrder()
+        }
     }
 
 }

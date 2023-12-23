@@ -121,6 +121,11 @@
                   </Label>
                   <JFXComboBox fx:id="cmbCustomerID" prefHeight="25.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <JFXTextField fx:id="txtCustomerName" prefHeight="25.0" prefWidth="222.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Label fx:id="lblOrderId" prefHeight="22.0" prefWidth="88.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
             <Label text="Total : " GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER">
