@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dto.CustomerDto;
 import dto.ItemDto;
+import dto.OrderDetailsDto;
 import dto.OrderDto;
 import dto.tm.OrderTm;
 import javafx.collections.FXCollections;
@@ -28,8 +29,11 @@ import model.impl.OrderModelImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class OrderFormController {
@@ -229,9 +233,37 @@ public class OrderFormController {
     }
     @FXML
     void onActionPlaceOrder(ActionEvent event) {
-        if (tmList.isEmpty()){
-//            orderModel.saveOrder()
+        List<OrderDetailsDto> list = new ArrayList<>();
+        for (OrderTm orderTm:tmList){
+            list.add(new OrderDetailsDto(
+                    lblOrderId.getText(),
+                    orderTm.getCode(),
+                    orderTm.getQty(),
+                    orderTm.getAmt()/orderTm.getQty()
+            ));
         }
+        if (!tmList.isEmpty()){
+            boolean isSaved = false;
+            try {
+                isSaved = orderModel.saveOrder(new OrderDto(
+                        lblOrderId.getText(),
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")).toString(),
+                        cmbCustomerID.getValue().toString(),
+                        list
+                ));
+                if (isSaved){
+                    new Alert(Alert.AlertType.INFORMATION,"Order Saved!").show();
+                }else{
+                    new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
+                }
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+        }else{
+            new Alert(Alert.AlertType.ERROR,"Please input the items for the order").show();
+        }
+
     }
 
 }
