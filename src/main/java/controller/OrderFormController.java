@@ -215,7 +215,7 @@ public class OrderFormController {
         }
     }
 
-    public void generateId(){
+    public String generateId(){
         try {
             OrderDto orderDto = orderModel.lastOrder();
             if (orderDto != null){
@@ -223,8 +223,10 @@ public class OrderFormController {
                 int num = Integer.parseInt(id.split("[D]")[1]);
                 num++;
                 lblOrderId.setText(String.format("D%03d",num));
+                return String.format("D%03d",num);
             }else{
                 lblOrderId.setText("D001");
+                return "D001";
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -242,9 +244,20 @@ public class OrderFormController {
                     orderTm.getAmt()/orderTm.getQty()
             ));
         }
+
+        if (txtCustomerName.getText().isEmpty()){
+            new Alert(Alert.AlertType.ERROR,"Please input customer details").show();
+            return;
+        }
+
         if (!tmList.isEmpty()){
             boolean isSaved = false;
             try {
+                OrderDto orderDto = orderModel.lastOrder();
+                if (orderDto.getOrderID().equals(lblOrderId.getText())){
+                    new Alert(Alert.AlertType.ERROR,"Duplicate Order!").show();
+                    return;
+                }
                 isSaved = orderModel.saveOrder(new OrderDto(
                         lblOrderId.getText(),
                         LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")).toString(),
