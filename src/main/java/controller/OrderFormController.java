@@ -144,6 +144,12 @@ public class OrderFormController {
                     amount,
                     deleteBtn
             );
+            deleteBtn.setOnAction(actionEvent -> {
+                tmList.remove(orderTm);
+                tblOrder.refresh();
+                tot-=orderTm.getAmt();
+                lblTotalAmount.setText(String.format("%.2f",tot));
+            });
             boolean isExist = false;
 
             tot+=amount;
@@ -152,7 +158,6 @@ public class OrderFormController {
                     order.setQty(order.getQty() + orderTm.getQty());
                     order.setAmt(order.getAmt() + orderTm.getAmt());
                     isExist = true;
-//                    tot += orderTm.getAmt();
                 }
             }
             if (!isExist){
@@ -171,6 +176,7 @@ public class OrderFormController {
         }
 
     }
+
 
     @FXML
     void onActionBackBtn(ActionEvent event) {
