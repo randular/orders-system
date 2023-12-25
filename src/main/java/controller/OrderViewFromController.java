@@ -2,6 +2,8 @@ package controller;
 
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
+import dto.tm.OrderItemViewTm;
+import dto.tm.OrderViewTm;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +22,7 @@ public class OrderViewFromController {
     private BorderPane pane;
 
     @FXML
-    private JFXTreeTableView<?> tblOrderView;
+    private JFXTreeTableView<OrderViewTm> tblOrderView;
 
     @FXML
     private TreeTableColumn colOrderCode;
@@ -35,7 +37,7 @@ public class OrderViewFromController {
     private TreeTableColumn colOrderCustName;
 
     @FXML
-    private JFXTreeTableView<?> tblItems;
+    private JFXTreeTableView<OrderItemViewTm> tblItems;
 
     @FXML
     private TreeTableColumn colItemCode;
