@@ -60,7 +60,7 @@
                         <Insets bottom="10.0" />
                     </GridPane.margin>
                 </JFXButton>
-                <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <GridPane prefHeight="44.0" prefWidth="664.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" prefWidth="0.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
@@ -82,12 +82,7 @@
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lblOrderId" prefHeight="22.0" prefWidth="88.0" GridPane.columnIndex="7">
-                            <font>
-                                <Font name="System Bold" size="13.0" />
-                            </font>
-                        </Label>
-                  <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="txtOrderSearch" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
             <Label prefHeight="17.0" prefWidth="116.0" text="Order Item Details" GridPane.columnIndex="1" GridPane.rowIndex="4">

@@ -1,5 +1,6 @@
 package controller;
 
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 public class OrderViewFromController {
 
+    public JFXTextField txtOrderSearch;
     @FXML
     private BorderPane pane;
 
@@ -21,37 +23,34 @@ public class OrderViewFromController {
     private JFXTreeTableView<?> tblOrderView;
 
     @FXML
-    private TreeTableColumn<?, ?> colOrderCode;
+    private TreeTableColumn colOrderCode;
 
     @FXML
-    private TreeTableColumn<?, ?> colOrderDate;
+    private TreeTableColumn colOrderDate;
 
     @FXML
-    private TreeTableColumn<?, ?> colOrderCustID;
+    private TreeTableColumn colOrderCustID;
 
     @FXML
-    private TreeTableColumn<?, ?> colOrderCustName;
-
-    @FXML
-    private Label lblOrderId;
+    private TreeTableColumn colOrderCustName;
 
     @FXML
     private JFXTreeTableView<?> tblItems;
 
     @FXML
-    private TreeTableColumn<?, ?> colItemCode;
+    private TreeTableColumn colItemCode;
 
     @FXML
-    private TreeTableColumn<?, ?> colItemName;
+    private TreeTableColumn colItemName;
 
     @FXML
-    private TreeTableColumn<?, ?> colItemQty;
+    private TreeTableColumn colItemQty;
 
     @FXML
-    private TreeTableColumn<?, ?> colItemUnitPrice;
+    private TreeTableColumn colItemUnitPrice;
 
     @FXML
-    private TreeTableColumn<?, ?> colItemAmount;
+    private TreeTableColumn colItemAmount;
 
     @FXML
     private Label lblOrderTotal;
