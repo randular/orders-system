@@ -38,5 +38,10 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="62.0" layoutY="249.0" onAction="#onActionOrderViewBtn" prefHeight="50.0" prefWidth="134.0" ripplerFill="#07fcfc" style="-fx-background-color: #16a5a5;" text="Order View" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

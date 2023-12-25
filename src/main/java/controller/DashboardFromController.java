@@ -73,4 +73,16 @@ public class DashboardFromController {
         }
 
     }
+
+    public void onActionOrderViewBtn(ActionEvent actionEvent) {
+        Stage stage = (Stage)paneDashboard.getScene().getWindow();
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/OrderViewForm.fxml"))));
+            stage.setResizable(false);
+            stage.setTitle("Order View");
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
