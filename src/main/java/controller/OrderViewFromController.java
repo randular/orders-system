@@ -4,12 +4,15 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import dto.tm.OrderItemViewTm;
 import dto.tm.OrderViewTm;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -56,6 +59,21 @@ public class OrderViewFromController {
 
     @FXML
     private Label lblOrderTotal;
+
+    public void initialize(){
+        colOrderCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("colOrderCode"));
+        colOrderDate.setCellValueFactory(new TreeItemPropertyValueFactory<>("Date"));
+        colOrderCustID.setCellValueFactory(new TreeItemPropertyValueFactory<>("customerID"));
+        colOrderCustName.setCellValueFactory(new TreeItemPropertyValueFactory<>("customerName"));
+        loadOrderViewTable();
+    }
+
+    private void loadOrderViewTable() {
+        ObservableList<OrderViewTm> orderTmList = FXCollections.observableArrayList();
+
+
+
+    }
 
     @FXML
     void onActionBackBtn(ActionEvent event) {
