@@ -95,13 +95,35 @@ public class OrderViewFromController {
                 });
             }
         });
+        colItemCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("orderItemCode"));
+        colItemName.setCellValueFactory(new TreeItemPropertyValueFactory<>("orderItemName"));
+        colItemQty.setCellValueFactory(new TreeItemPropertyValueFactory<>("orderItemQty"));
+        colItemUnitPrice.setCellValueFactory(new TreeItemPropertyValueFactory<>("orderItemUnitPrice"));
+        colItemAmount.setCellValueFactory(new TreeItemPropertyValueFactory<>("orderItemAmount"));
     }
 
     private void itemTableLoad(TreeItem<OrderViewTm> newValue) {
         if (newValue != null){
             OrderViewTm selectedOrder = newValue.getValue();
+            ObservableList<OrderItemViewTm> orderDetailsTmList = FXCollections.observableArrayList();
+            double totalAmount = 0;
             try {
                 List<OrderViewItemsDto> list = orderViewModel.allItems(selectedOrder.getOrderID());
+                for (OrderViewItemsDto dto:list){
+                    OrderItemViewTm table = new OrderItemViewTm(
+                            dto.getOrderItemCode(),
+                            dto.getOrderItemName(),
+                            dto.getOrderItemQty(),
+                            dto.getOrderItemUnitPrice(),
+                            dto.getOrderItemAmount()
+                    );
+                    orderDetailsTmList.add(table);
+                    totalAmount+=dto.getOrderItemAmount();
+                }
+                TreeItem<OrderItemViewTm> treeItem = new RecursiveTreeItem<>(orderDetailsTmList, RecursiveTreeObject::getChildren);
+                tblItems.setRoot(treeItem);
+                tblItems.setShowRoot(false);
+                lblOrderTotal.setText(String.format("%.2f",totalAmount));
 
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -151,6 +173,8 @@ public class OrderViewFromController {
     void onActionRefreshBtn(ActionEvent event) {
         txtOrderSearch.clear();
         tblOrderView.refresh();
+
+
     }
 
 }

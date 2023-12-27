@@ -45,7 +45,6 @@ public class OrderViewModelImpl implements OrderViewModel {
         pstm.setString(1,id);
         ResultSet resultSet = pstm.executeQuery();
         while (resultSet.next()){
-            System.out.println("item sql");
             list.add(new OrderViewItemsDto(
                     resultSet.getString(1),
                     resultSet.getString(2),
