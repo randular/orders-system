@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dto.OrderViewDto;
+import dto.OrderViewItemsDto;
 import dto.tm.OrderItemViewTm;
 import dto.tm.OrderViewTm;
 import javafx.beans.value.ChangeListener;
@@ -79,6 +80,10 @@ public class OrderViewFromController {
         colOrderCustName.setCellValueFactory(new TreeItemPropertyValueFactory<>("orderCustName"));
         loadOrderViewTable();
 
+        tblOrderView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            itemTableLoad(newValue);
+        });
+
         txtOrderSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String newValue) {
@@ -90,6 +95,19 @@ public class OrderViewFromController {
                 });
             }
         });
+    }
+
+    private void itemTableLoad(TreeItem<OrderViewTm> newValue) {
+        if (newValue != null){
+            OrderViewTm selectedOrder = newValue.getValue();
+            try {
+                List<OrderViewItemsDto> list = orderViewModel.allItems(selectedOrder.getOrderID());
+
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
     }
 
     private void loadOrderViewTable() {
