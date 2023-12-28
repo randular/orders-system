@@ -149,9 +149,12 @@ public class OrderFormController {
                     qtyOrdered += order.getQty();
                 }
             }
-            if (txtCustomerName.getText().isEmpty()|| txtItemDesc.getText().isEmpty() || txtItemQty.getText().isEmpty()){
-                new Alert(Alert.AlertType.ERROR,"Please enter Customer,Item and quantity details").show();
-            }else if (itemModel.getItem(cmbItemCode.getValue().toString()).getQty() < Integer.parseInt(txtItemQty.getText())+qtyOrdered){
+            if (txtCustomerName.getText().isEmpty()|| txtItemDesc.getText().isEmpty() || txtItemQty.getText().isEmpty()) {
+                new Alert(Alert.AlertType.ERROR, "Please enter Customer,Item and quantity details").show();
+            } else if (Integer.parseInt(txtItemQty.getText()) == 0 || Integer.parseInt(txtItemQty.getText()) < 0) {
+                new Alert(Alert.AlertType.ERROR,"Please enter a positive whole value more than 0 as Buying Qty").show();
+            }else if (itemModel.getItem(cmbItemCode.getValue().toString()).getQty()
+                    < Integer.parseInt(txtItemQty.getText())+qtyOrdered){
                 new Alert(Alert.AlertType.ERROR,"Entered quantity is more than on hand quantity").show();
             }else{
                 double amount = itemModel.getItem(cmbItemCode.getValue().toString())
@@ -198,6 +201,8 @@ public class OrderFormController {
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }catch (NumberFormatException e){
+            new Alert(Alert.AlertType.ERROR, "Please enter a positive whole value more than 0 as Buying Qty").show();
         }
 
     }
