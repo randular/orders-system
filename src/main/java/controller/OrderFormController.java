@@ -270,7 +270,7 @@ public class OrderFormController {
                         list
                 ));
                 if (isSaved){
-                    new Alert(Alert.AlertType.INFORMATION,"Order Saved!").show();
+                    new Alert(Alert.AlertType.INFORMATION,"Order "+lblOrderId.getText()+" Saved!").show();
                 }else{
                     new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
                 }
