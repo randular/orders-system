@@ -12,6 +12,6 @@ public interface ItemModel {
     ItemDto getItem(String code) throws SQLException, ClassNotFoundException;
     List<ItemDto> allItems() throws SQLException, ClassNotFoundException;
 
-    ItemDto searchItem (String code);
+
 
 }

@@ -83,8 +83,4 @@ public class ItemModelImpl implements ItemModel {
         return list;
     }
 
-    @Override
-    public ItemDto searchItem(String code) {
-        return null;
-    }
 }
