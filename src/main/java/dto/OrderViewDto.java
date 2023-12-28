@@ -13,5 +13,4 @@ public class OrderViewDto {
     private String Date;
     private String customerID;
     private String customerName;
-    private List<OrderViewItemsDto> list;
 }

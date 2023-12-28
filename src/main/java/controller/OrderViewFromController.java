@@ -173,7 +173,9 @@ public class OrderViewFromController {
     void onActionRefreshBtn(ActionEvent event) {
         txtOrderSearch.clear();
         tblOrderView.refresh();
-
+        lblOrderTotal.setText("0.00");
+        tblOrderView.getSelectionModel().clearSelection();
+        tblItems.setRoot(null);
 
     }
 
