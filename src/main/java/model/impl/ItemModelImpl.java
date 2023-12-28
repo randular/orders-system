@@ -83,4 +83,13 @@ public class ItemModelImpl implements ItemModel {
         return list;
     }
 
+    @Override
+    public boolean updateItemQty(String code, int qty) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE item SET qtyOnHand=? WHERE code=?";
+        PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
+        pstm.setInt(1,qty);
+        pstm.setString(2,code);
+        return pstm.executeUpdate()>0;
+    }
+
 }
